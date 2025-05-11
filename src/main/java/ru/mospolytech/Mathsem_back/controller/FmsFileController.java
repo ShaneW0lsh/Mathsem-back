@@ -10,33 +10,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mospolytech.Mathsem_back.model.entity.User;
-import ru.mospolytech.Mathsem_back.repository.UserRepository;
+import ru.mospolytech.Mathsem_back.model.entity.FmsFile;
+import ru.mospolytech.Mathsem_back.repository.FmsFileRepository;
 
 @Slf4j
-@RestController
 @RequiredArgsConstructor
-@RequestMapping("api/users")
-public class UserController {
+@RestController
+@RequestMapping("api/files")
+public class FmsFileController {
 
-    private final UserRepository userRepo;
+    private final FmsFileRepository fileRepo;
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Integer id) {
-        return userRepo.findById(id)
+    public ResponseEntity<FmsFile> getFile(@PathVariable Integer id) {
+        return fileRepo.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userRepo.save(user);
+    public FmsFile createFile(@RequestBody FmsFile file) {
+        return fileRepo.save(file);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
-        if (userRepo.existsById(id)) {
-            userRepo.deleteById(id);
+    public ResponseEntity<Void> deleteFile(@PathVariable Integer id) {
+        if (fileRepo.existsById(id)) {
+            fileRepo.deleteById(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

@@ -1,3 +1,5 @@
+name: mathsem-back
+
 services:
   mysql:
     image: mysql:8.0

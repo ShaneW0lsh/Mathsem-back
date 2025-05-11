@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: Mathsem-back
+  datasource:
+    url: jdbc:mysql://localhost:3306/fms_db
+    username: fms_user
+    password: userpassword
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        type: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: TRACE
