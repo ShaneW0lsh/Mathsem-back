@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_fms
+    environment:
+      MYSQL_SECURE_FILE_PRIV: ""
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: fms_db
+      MYSQL_USER: fms_user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./migrations:/docker-entrypoint-initdb.d
+      - ./fms_files:/var/lib/mysql-files:rw
+    command:
+      --max_allowed_packet=128M
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  mysql_data:
